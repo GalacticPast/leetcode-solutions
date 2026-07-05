@@ -1,6 +1,7 @@
 #include "iostream"
 #include "string"
 #include "unordered_set"
+#include "utility"
 #include "vector"
 
 using std::string;
@@ -12,21 +13,29 @@ class Solution
   public:
     int minEatingSpeed(vector<int> &piles, int h)
     {
-        int k = 1;
-        while (true)
+        int left  = 1;
+        int right = *std::max_element(piles.begin(), piles.end());
+        int ans   = INT_MAX;
+        while (left <= right)
         {
-            int t = 0;
+            long long t = 0;
+            int       k = left + (right - left) / 2;
             for (int i : piles)
             {
-                t += ceil(i / k);
+                t += ceil((float)i / (float)k);
+                if (t > h)
+                    break;
             }
-            std::cout << t << " ";
             if (t <= h)
             {
-                return k;
+                ans   = std::min(k, ans);
+                right = k - 1;
             }
-            k++;
+            else if (t > h)
+            {
+                left = k + 1;
+            }
         }
-        return -1;
+        return ans;
     }
 };
