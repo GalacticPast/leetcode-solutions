@@ -10,3 +10,12 @@ using std::pair;
 using std::sort;
 using std::stack;
 using std::vector;
+
+class Solution
+{
+};
+
+int main()
+{
+    Solution *sol = new Solution();
+}
