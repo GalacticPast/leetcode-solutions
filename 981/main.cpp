@@ -41,29 +41,30 @@ class TimeMap
         auto kvp = map.find(key);
         if (kvp == map.end())
             return "";
-        auto vec = kvp->second;
+        auto vec = &kvp->second;
 
         int left  = 0;
-        int right = vec.size();
+        int right = vec->size() - 1;
 
+        pair<string, int> *p = nullptr;
         while (left <= right)
         {
             int  mid  = left + (right - left) / 2;
-            auto pair = vec[mid];
-            if (pair.second == timestamp)
+            auto pair = &vec->at(mid);
+
+            if (pair->second <= timestamp)
             {
-                return pair.first;
+                p    = pair;
+                left = mid + 1;
             }
-            else if (pair.second > timestamp)
+            else if (pair->second > timestamp)
             {
                 right = mid - 1;
             }
-            else
-            {
-                left = mid + 1;
-            }
         }
-        return "";
+        if (p == nullptr)
+            return "";
+        return p->first;
     }
 };
 
