@@ -1,6 +1,7 @@
 #include "algorithm"
 #include "iostream"
 #include "stack"
+#include "unordered_map"
 #include "utility"
 #include "vector"
 
@@ -12,7 +13,9 @@ using std::pair;
 using std::sort;
 using std::stack;
 using std::string;
+using std::unordered_map;
 using std::vector;
+
 class Solution
 {
 };
