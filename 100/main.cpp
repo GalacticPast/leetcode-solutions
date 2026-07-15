@@ -31,30 +31,21 @@ struct TreeNode
     {
     }
 };
-// I have to improve the space time complexity as it's O(n^2) rn.
+
 class Solution
 {
-    int max_d = 0;
-
   public:
-    int get_height_of_tree(TreeNode *root)
+    bool isSameTree(TreeNode *p, TreeNode *q)
     {
-        if (root == nullptr)
-            return 0;
-        int left  = get_height_of_tree(root->left) + 1;
-        int right = get_height_of_tree(root->right) + 1;
-        return max(left, right);
-    }
-    int diameterOfBinaryTree(TreeNode *root)
-    {
-        if (root == nullptr)
-            return 0;
-        int left  = get_height_of_tree(root->left);
-        int right = get_height_of_tree(root->right);
-        max_d     = max(left + right, max_d);
-        diameterOfBinaryTree(root->left);
-        diameterOfBinaryTree(root->right);
-        return max_d;
+        if (p == nullptr && q == nullptr)
+            return true;
+        if ((p == nullptr && q) || (q == nullptr && p))
+            return false;
+        if (p->val != q->val)
+            return false;
+        bool left  = isSameTree(p->left, q->left);
+        bool right = isSameTree(p->right, q->right);
+        return left && right;
     }
 };
 int main()

@@ -31,32 +31,39 @@ struct TreeNode
     {
     }
 };
-// I have to improve the space time complexity as it's O(n^2) rn.
+
 class Solution
 {
-    int max_d = 0;
+    bool ans = true;
 
   public:
-    int get_height_of_tree(TreeNode *root)
+    int get_height(TreeNode *root)
     {
-        if (root == nullptr)
+        if (ans == false || root == nullptr)
             return 0;
-        int left  = get_height_of_tree(root->left) + 1;
-        int right = get_height_of_tree(root->right) + 1;
+        int left  = get_height(root->left) + 1;
+        int right = get_height(root->right) + 1;
+        if (abs(left - right) > 1)
+        {
+            ans = false;
+            return 0;
+        }
         return max(left, right);
     }
-    int diameterOfBinaryTree(TreeNode *root)
+    bool isBalanced(TreeNode *root)
     {
         if (root == nullptr)
-            return 0;
-        int left  = get_height_of_tree(root->left);
-        int right = get_height_of_tree(root->right);
-        max_d     = max(left + right, max_d);
-        diameterOfBinaryTree(root->left);
-        diameterOfBinaryTree(root->right);
-        return max_d;
+            return true;
+        int l_h = get_height(root->left) + 1;
+        int r_h = get_height(root->right) + 1;
+        if (abs(l_h - r_h) > 1)
+        {
+            ans = false;
+        }
+        return ans;
     }
 };
+
 int main()
 {
     Solution *sol = new Solution();
