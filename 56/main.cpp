@@ -22,24 +22,29 @@ class Solution
   public:
     vector<vector<int>> merge(vector<vector<int>> &intervals)
     {
+        if (intervals.empty())
+            return {};
+
+        sort(intervals.begin(), intervals.end());
+
         vector<vector<int>> ans;
+
         for (int i = 0; i < intervals.size();)
         {
-            int j     = i;
             int left  = intervals[i][0];
             int right = intervals[i][1];
-            while (j < intervals.size()
-                   && ((right >= intervals[j][0] && right <= intervals[j][1])
-                       || (left >= intervals[j][0] && left <= intervals[j][1])
-                       || (left >= intervals[j][0] && right <= intervals[j][1])))
+            int j     = i + 1;
+
+            while (j < intervals.size() && intervals[j][0] <= right)
             {
-                left  = min(intervals[j][0], left);
-                right = max(intervals[j][1], right);
+                right = max(right, intervals[j][1]);
                 j++;
             }
+
             ans.push_back({left, right});
-            i += j;
+            i = j;
         }
+
         return ans;
     }
 };
