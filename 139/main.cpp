@@ -21,32 +21,40 @@ using std::vector;
 class Solution
 {
   public:
-    bool dfs(unordered_set<string> &dict, string s, string a, int i)
-    {
-        if (i >= s.size())
-            return false;
-        a += s[i];
-
-        bool take = dfs(dict, s, a, i + 1);
-        if (dict.find(a) != dict.end())
-        {
-            take |= dfs(dict, s, "", i + 1);
-        }
-        return take;
-    }
     bool wordBreak(string s, vector<string> &wordDict)
     {
         unordered_set<string> dict;
+        int                   max_len = 0;
         for (string c : wordDict)
         {
+            int len = c.size();
+            max_len = max(len, max_len);
             dict.insert(c);
         }
-        bool ans = dfs(dict, s, "", 0);
-        return ans;
+
+        int          n = s.size();
+        vector<bool> dp(n + 1);
+        dp[0] = true;
+
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = i - 1; j >= 0; j--)
+            {
+                if (dp[j] && dict.find(s.substr(j, (i - j))) != dict.end())
+                {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return dp[n];
     }
 };
 
 int main()
 {
-    Solution *sol = new Solution();
+    Solution      *sol  = new Solution();
+    vector<string> dict = {"aaaa", "aaa"};
+    bool           ans  = sol->wordBreak("aaaaaaa", dict);
 }
