@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/galacticpast/Documents/projects/leetcode-solutions/150",
-      "program": "/home/galacticpast/Documents/projects/leetcode-solutions/150/a.out",
+      "cwd": "/home/galacticpast/Documents/projects/leetcode-solutions/763",
+      "program": "/home/galacticpast/Documents/projects/leetcode-solutions/763/a.out",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

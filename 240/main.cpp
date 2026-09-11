@@ -29,7 +29,9 @@ class Solution
         while (left <= right)
         {
             int mid = left + (right - left) / 2;
-            if (mid >= 0 && mid <= right && matrix[y][mid] == target)
+            if (mid < 0 && mid > right)
+                break;
+            if (matrix[y][mid] == target)
                 return true;
             else if (matrix[y][mid] > target)
             {
@@ -47,7 +49,9 @@ class Solution
         while (left <= right)
         {
             int mid = left + (right - left) / 2;
-            if (mid >= 0 && mid <= right && matrix[mid][x] == target)
+            if (mid < 0 && mid > right)
+                break;
+            if (matrix[mid][x] == target)
                 return true;
             else if (matrix[mid][x] > target)
             {
@@ -62,7 +66,7 @@ class Solution
     }
     bool searchMatrix(vector<vector<int>> &matrix, int target)
     {
-        for (int i = 0; i < matrix.size(); i++)
+        for (int i = 0; i < matrix.size() && i < matrix[0].size(); i++)
         {
             if (binary_search(matrix, target, i, i))
             {
@@ -75,5 +79,8 @@ class Solution
 
 int main()
 {
-    Solution *sol = new Solution();
+    Solution           *sol    = new Solution();
+    vector<vector<int>> matrix = {{-1}, {-1}};
+
+    int ans = sol->searchMatrix(matrix, -2);
 }
